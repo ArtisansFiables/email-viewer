@@ -1,0 +1,52 @@
+{
+  "name": "email-viewer",
+  "version": "1.0.0",
+  "description": "EmailViewer permits to watch email files (Pug + HEML) on the browser",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "chokidar --initial -c \"npm run server\"",
+    "server": "ts-node src",
+    "lint": "tslint --project tsconfig.json -t codeFrame 'src/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArtisansFiables/email-viewer.git"
+  },
+  "author": "Devessier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArtisansFiables/email-viewer/issues"
+  },
+  "homepage": "https://github.com/ArtisansFiables/email-viewer#readme",
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "arrowParens": "always"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run lint"
+    }
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.0.2",
+    "husky": "^3.0.5",
+    "prettier": "^1.18.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.19.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "chokidar-cli": "^2.0.0"
+  }
+}
