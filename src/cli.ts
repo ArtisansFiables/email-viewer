@@ -13,6 +13,6 @@ export function command(): string | null {
         )
         .parse(process.argv)
 
-    if (program.watch === undefined) return null
+    if (typeof program.watch !== 'string') return null
     return program.watch
 }
