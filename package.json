@@ -4,7 +4,7 @@
   "description": "EmailViewer permits to watch email files (Pug + HEML) on the browser",
   "main": "src/index.ts",
   "scripts": {
-    "start": "chokidar --initial -c \"npm run server\"",
+    "start": "npm run server",
     "server": "ts-node src",
     "lint": "tslint --project tsconfig.json -t codeFrame 'src/**/*.ts'"
   },
@@ -47,6 +47,9 @@
     }
   },
   "dependencies": {
-    "chokidar-cli": "^2.0.0"
+    "@types/trouter": "^3.1.0",
+    "chokidar": "^3.0.2",
+    "commander": "^3.0.1",
+    "trouter": "^3.1.0"
   }
 }
