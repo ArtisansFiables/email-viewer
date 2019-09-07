@@ -1,7 +1,17 @@
-import { watch } from 'chokidar'
-import { command } from './cli'
+import { watch, FSWatcher } from 'chokidar'
+import { compile, TemplatesMap } from '@artisans-fiables/template-compiler'
+import clear from 'clear'
 
-async function server() {
+import { command } from './cli'
+import { server, HOST, PORT } from './server'
+
+export interface Context {
+    files: TemplatesMap | null
+    directory: string
+    cache: Map<string, string>
+}
+
+async function app() {
     try {
         const directory = command()
         if (directory === null) {
@@ -9,37 +19,58 @@ async function server() {
             return
         }
 
+        const context: Context = {
+            directory,
+            files: null,
+            cache: new Map()
+        }
+
         const watcher = watch(directory)
+        watcher.on('error', (error) => {
+            console.error(error)
+            process.exit(1)
+        })
 
-        const log = (...args: any[]) => console.log(...args)
+        await setup(watcher, context)
 
-        // Add event listeners.
-        watcher
-            .on('add', (path) => {
-                log(`File ${path} has been added`)
-            })
-            .on('change', (path) => log(`File ${path} has been changed`))
-            .on('unlink', (path) => {
-                log(`File ${path} has been removed`)
-            })
+        const events = ['add', 'change', 'unlink', 'addDir', 'unlinkDir']
 
-        // More possible events.
-        watcher
-            .on('addDir', (path) => log(`Directory ${path} has been added`))
-            .on('unlinkDir', (path) =>
-                log(`Directory ${path} has been removed`)
-            )
-            .on('error', (error) => log(`Watcher error: ${error}`))
-            .on('ready', () => log('Initial scan complete. Ready for changes'))
-            .on('raw', (event, path, details) => {
-                // internal
-                log('Raw event info:', event, path, details)
-            })
+        events.forEach((event) => {
+            watcher.on(event, () => onChange(context))
+        })
 
-        await new Promise((resolve) => watcher.on('error', resolve))
+        await server(context)
     } catch (e) {
         console.error(e)
     }
 }
 
-server().catch(console.error)
+function setup(watcher: FSWatcher, context: Context) {
+    return new Promise((resolve) => {
+        watcher.on('ready', async () => {
+            await onChange(context)
+
+            resolve()
+        })
+    })
+}
+
+async function onChange(context: Context) {
+    try {
+        clear()
+
+        console.log(`Compile ${context.directory} files …`)
+
+        context.cache.clear()
+        context.files = await compile(context.directory)
+
+        console.log(`Compiled ${context.files.size} files`)
+
+        console.log(`\nAPI can be accessed at http://${HOST}:${PORT} 🚀\n`)
+    } catch (e) {
+        console.error(e)
+        process.exit(1)
+    }
+}
+
+app().catch(console.error)

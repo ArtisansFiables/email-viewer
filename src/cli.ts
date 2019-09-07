@@ -14,5 +14,5 @@ export function command(): string | null {
         .parse(process.argv)
 
     if (typeof program.watch !== 'string') return null
-    return program.watch
+    return program.watch.trim()
 }

@@ -1,0 +1,9 @@
+html
+    head
+        title #{title}
+    body
+        h1 List of compiled templates :
+        ul
+            each template in templates
+                li
+                    a(href=template.link) #{template.name}
