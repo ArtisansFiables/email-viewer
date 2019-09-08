@@ -1,5 +1,5 @@
 {
-  "name": "email-viewer",
+  "name": "@artisans-fiables/email-viewer",
   "bin": {
     "email-viewer": "bin/index.js"
   },
