@@ -3,7 +3,7 @@
   "bin": {
     "email-viewer": "bin/index.js"
   },
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "EmailViewer permits to watch email files (Pug + HEML) on the browser",
   "main": "src/index.ts",
   "scripts": {
