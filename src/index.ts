@@ -9,6 +9,7 @@ export interface Context {
     files: TemplatesMap | null
     directory: string
     cache: Map<string, string>
+    blacklist: Set<string>
 }
 
 async function app() {
@@ -22,7 +23,8 @@ async function app() {
         const context: Context = {
             directory,
             files: null,
-            cache: new Map()
+            cache: new Map(),
+            blacklist: new Set()
         }
 
         const watcher = watch(directory)
@@ -62,6 +64,7 @@ async function onChange(context: Context) {
         console.log(`Compile ${context.directory} files …`)
 
         context.cache.clear()
+        context.blacklist.clear()
         context.files = await compile(context.directory)
 
         console.log(`Compiled ${context.files.size} files`)
@@ -69,7 +72,6 @@ async function onChange(context: Context) {
         console.log(`\nAPI can be accessed at http://${HOST}:${PORT} 🚀\n`)
     } catch (e) {
         console.error(e)
-        process.exit(1)
     }
 }
 

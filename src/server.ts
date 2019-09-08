@@ -79,15 +79,24 @@ export async function server(context: Context) {
                 const files = context.files
 
                 const cachedResult = cache.get(file)
-                if (cachedResult !== undefined) return cachedResult
+                if (
+                    cachedResult !== undefined &&
+                    !context.blacklist.has(file)
+                ) {
+                    return cachedResult
+                }
 
                 if (files === null) return null
 
                 const template = files.get(file)
                 if (template === undefined) return null
 
-                const { html: view } = await heml(template())
-                cache.set(file, view)
+                const params = request.query
+
+                const { html: view } = await heml(template(params))
+
+                if (Object.entries(params).length === 0) cache.set(file, view)
+                else context.blacklist.add(file)
 
                 return view
             }
