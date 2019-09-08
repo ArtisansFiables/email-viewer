@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- 10
+notifications:
+- email: true
+after_success:
+- npm run build
+deploy:
+  provider: npm
+  email: baptiste@devessier.fr
+  api_key:
+    secure: vQR9qG88yRn6iSLEt07jqdRqjPz9t2H5uu9u/X8CwYSYaGzHOkhomFFNmBBDLW4s3GHw0sme1aSqCNjPuPcAiWQ+8llr43RZ/DCC2JoWoFrpiT1M1Dr6RJS4kFMGvAO5ZPGv4NkUDiB+1BUxRUHtXhnOkkk2d3HlB4ult8QrjVeUMtVa3k1hPX63o1dQdQCLMajYJR2xb78s0wTLzpGWwspzN36PcLsyfOhhVtjvk66qMkWg7Rz5STpFT37zqYz2DnAOQEdBGwaDBF27Ravp8DcN4fIRQOjHXhUvcbbeT/hn6ef+tgsotvB8ArzO6eXE89bXJeaWbaC2C4QNkrU57exItwW0i4xJCs6sUgsMv87H7SuYaselayBZ3dkDvnU6fw1+my0tqbAu7JBVqs8CNe24APJEUkKp5NLnfZ84NNXDBuOjw3R5/bn+lV8O4SyMFo5unck62zWVCoqJgcximroGFcc1IONJte71amucFdYZkR9ymbicr8o3Ga9PEwk/3+Lqj3yls001RlFYoOpMGs2vpniEZKsMtF9s+2QBXiXU/PK+a1oitNjxhr2wuMGwSnyYZuqh0DTaQoJsS62elmc/N5ytM3ClAZaOJ3vwZNi/17tjhzjiwkmwA9tJgJqAFwg6XbKmuyAYZpu7lbQnMFrAeeoL7hB19aaa+QvzrMY=
+  on:
+    tags: true
+    repo: ArtisansFiables/email-viewer
