@@ -7,14 +7,14 @@
   "description": "EmailViewer permits to watch email files (Pug + HEML) on the browser",
   "main": "bin/index.ts",
   "files": [
-    "bin"
+    "bin",
+    "views"
   ],
   "scripts": {
     "start": "npm run server",
-    "build": "rimraf bin && npm run build:types && npm run build:js && npm run copy-files",
+    "build": "rimraf bin && npm run build:types && npm run build:js",
     "build:types": "tsc --noEmit",
     "build:js": "babel src --out-dir bin --extensions \".ts\"",
-    "copy-files": "cpy ./views ./bin/views",
     "server": "ts-node --files src",
     "lint": "tslint --project tsconfig.json -t codeFrame 'src/**/*.ts'"
   },
@@ -43,7 +43,6 @@
   },
   "devDependencies": {
     "babel-plugin-shebang": "^1.0.0",
-    "cpy-cli": "^2.0.0",
     "cz-conventional-changelog": "^3.0.2",
     "husky": "^3.0.5",
     "prettier": "^1.18.2",
