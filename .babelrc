@@ -9,5 +9,13 @@
             }
         ],
         "@babel/typescript"
+    ],
+    "plugins": [
+        [
+            "shebang",
+            {
+                "force": true
+            }
+        ]
     ]
 }

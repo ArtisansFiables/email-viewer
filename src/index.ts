@@ -1,5 +1,3 @@
-#! /usr/bin/env node
-
 import { watch, FSWatcher } from 'chokidar'
 import { compile, TemplatesMap } from '@artisans-fiables/template-compiler'
 import clear from 'clear'
