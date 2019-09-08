@@ -6,6 +6,9 @@
   "version": "2.0.1",
   "description": "EmailViewer permits to watch email files (Pug + HEML) on the browser",
   "main": "src/index.ts",
+  "files": [
+    "bin"
+  ],
   "scripts": {
     "start": "npm run server",
     "build": "rimraf bin && npm run build:types && npm run build:js && npm run copy-files",
@@ -19,7 +22,7 @@
     "type": "git",
     "url": "git+https://github.com/ArtisansFiables/email-viewer.git"
   },
-  "author": "Devessier",
+  "author": "Devessier <baptiste@devessier.fr>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ArtisansFiables/email-viewer/issues"
