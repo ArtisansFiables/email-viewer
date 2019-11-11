@@ -3,9 +3,10 @@ import { compile, TemplatesMap } from '@artisans-fiables/template-compiler'
 import clear from 'clear'
 
 import { command } from './cli'
-import { server, HOST, PORT } from './server'
+import { server, HOST } from './server'
 
 export interface Context {
+    serverPort: number
     files: TemplatesMap | null
     directory: string
     cache: Map<string, string>
@@ -14,14 +15,17 @@ export interface Context {
 
 async function app() {
     try {
-        const directory = command()
-        if (directory === null) {
+        const result = command()
+        if (result === null) {
             console.log('--watch flag must be specified')
             return
         }
 
+        const [directory, port] = result
+
         const context: Context = {
             directory,
+            serverPort: port,
             files: null,
             cache: new Map(),
             blacklist: new Set()
@@ -69,7 +73,9 @@ async function onChange(context: Context) {
 
         console.log(`Compiled ${context.files.size} files`)
 
-        console.log(`\nAPI can be accessed at http://${HOST}:${PORT} 🚀\n`)
+        console.log(
+            `\nAPI can be accessed at http://${HOST}:${context.serverPort} 🚀\n`
+        )
     } catch (e) {
         console.error(e)
     }

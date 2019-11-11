@@ -6,10 +6,11 @@ import { join } from 'path'
 
 import { Context } from './index'
 
-export const PORT = 3000
 export const HOST = 'localhost'
 
 export async function server(context: Context) {
+    const PORT = context.serverPort
+
     const server = new Server({
         port: PORT,
         host: HOST
