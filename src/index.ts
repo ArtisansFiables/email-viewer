@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { watch, FSWatcher } from 'chokidar';
 import { compile, TemplatesMap } from '@artisansfiables/template-compiler';
 import clear from 'clear';
