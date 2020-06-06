@@ -1,15 +1,15 @@
 declare module 'heml' {
     interface Result {
-        errors: string[]
-        html: string
+        errors: string[];
+        html: string;
         metadata: {
-            meta: any[]
-            subject: string
-            size: string
-        }
+            meta: any[];
+            subject: string;
+            size: string;
+        };
     }
 
-    function heml(text: string): Promise<Result>
+    function heml(text: string): Promise<Result>;
 
-    export = heml
+    export = heml;
 }
